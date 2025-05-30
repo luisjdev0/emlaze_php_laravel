@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductoController;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,10 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::get('/productos', function () {
-        return response()->json(Producto::all());
-    });
-
+    Route::apiResource('productos', ProductoController::class);
     Route::get('/productos/{sku}', function ($sku) {
         return response()->json(Producto::where('sku', $sku)->first());
     });
